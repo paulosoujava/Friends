@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">Friends</string>
+    <string name="appName">Friends</string>
+    <string name="emailHint">digite seu email</string>
+    <string name="email">Email</string>
+    <string name="passwordHint">digite sua senha</string>
+    <string name="password">Senha</string>
+    <string name="signUp">Logar</string>
+    <string name="timeline">Timeline</string>
+    <string name="account">Create an account</string>
 </resources>
