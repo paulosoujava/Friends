@@ -1,12 +1,6 @@
 package com.paulo.friends
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.compositionLocalOf
-import androidx.compose.ui.tooling.preview.Preview
-
+/*
 data class User(val name: String, val age: Int)
 
 
@@ -28,3 +22,4 @@ fun UserInf() {
         Text(text = "Nome: " + localActiveUser.current.age)
     }
 }
+ */
