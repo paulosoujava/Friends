@@ -2,6 +2,8 @@ package com.paulo.friends.signUp
 
 
 import com.paulo.friends.InstantTaskExecutorExtension
+import com.paulo.friends.domain.user.InMemoryUserCatalog
+import com.paulo.friends.domain.user.UserRepository
 import com.paulo.friends.domain.validation.CredentialValidationResult
 import com.paulo.friends.domain.validation.RegexCredentialsValidator
 import com.paulo.friends.singUp.SignUpState
@@ -16,6 +18,12 @@ import org.junit.jupiter.params.provider.CsvSource
 @ExtendWith(InstantTaskExecutorExtension::class)
 class CredentialValidationTest {
 
+    private val viewModel = SignUpViewModel(
+        RegexCredentialsValidator(),
+        UserRepository(InMemoryUserCatalog())
+    )
+
+
     @ParameterizedTest
     @CsvSource(
         "'email'",
@@ -25,10 +33,9 @@ class CredentialValidationTest {
         "''",
         "'    '",
     )
-    fun invalidEmail(email: String){
-        val viewModel = SignUpViewModel(RegexCredentialsValidator())
+    fun invalidEmail(email: String) {
         viewModel.createAccount(email, ":password:", ":about:")
-        assertEquals(SignUpState.BadEmail, viewModel.signUpState.value   )
+        assertEquals(SignUpState.BadEmail, viewModel.signUpState.value)
     }
 
     @ParameterizedTest
@@ -41,15 +48,14 @@ class CredentialValidationTest {
         "'abc124$#'",
         "'EF124$#'"
     )
-    fun invalidPassword(password: String){
-        val viewModel = SignUpViewModel(RegexCredentialsValidator())
+    fun invalidPassword(password: String) {
         viewModel.createAccount("email@email.com", password, ":about:")
         assertEquals(SignUpState.BadPassword, viewModel.signUpState.value)
     }
 
     @Test
-    fun validCredentials(){
-        val validator =RegexCredentialsValidator()
+    fun validCredentials() {
+        val validator = RegexCredentialsValidator()
         val result = validator.validate("email@email.com", "12Abcd3!")
         assertEquals(CredentialValidationResult.Valid, result)
     }

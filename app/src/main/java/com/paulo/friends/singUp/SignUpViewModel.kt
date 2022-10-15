@@ -2,16 +2,19 @@ package com.paulo.friends.singUp
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.paulo.friends.domain.user.User
+import com.paulo.friends.domain.user.UserRepository
 import com.paulo.friends.domain.validation.CredentialValidationResult
 import com.paulo.friends.domain.validation.RegexCredentialsValidator
 
+
 class SignUpViewModel(
-    private val credentialsValidator: RegexCredentialsValidator
+    private val credentialsValidator: RegexCredentialsValidator,
+    private val userRepository: UserRepository
 ) {
 
     private val _mutableSignUpState = MutableLiveData<SignUpState>()
     val signUpState: LiveData<SignUpState> = _mutableSignUpState
+
 
     fun createAccount(
         email: String,
@@ -25,15 +28,15 @@ class SignUpViewModel(
                 SignUpState.BadPassword
             CredentialValidationResult.Valid -> {
 
-                if(email.contains("ana")){
-                    _mutableSignUpState.value = SignUpState.DuplicatedAccount
-                }else{
-                    val idUser = email.takeWhile { it != '@' } + "Id"
-                    val user = User(idUser, email, about)
-                    _mutableSignUpState.value = SignUpState.SignUp(user)
-                }
+                val result = userRepository.signUp(email, password, about)
+
+                _mutableSignUpState.value = result
             }
         }
     }
+
+
+
 }
+
 
