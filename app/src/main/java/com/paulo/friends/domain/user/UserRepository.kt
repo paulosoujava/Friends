@@ -1,10 +1,12 @@
 package com.paulo.friends.domain.user
 
+import com.paulo.friends.domain.excpetion.BackendException
+import com.paulo.friends.domain.excpetion.ConnectionUnavailableException
 import com.paulo.friends.domain.excpetion.DuplicateAccountException
-import com.paulo.friends.singUp.SignUpState
+import com.paulo.friends.presentation.singUp.SignUpState
 
 class UserRepository(
-    private val userCatalog: InMemoryUserCatalog = InMemoryUserCatalog()
+    private val userCatalog: UserCatalog
 ) {
 
     fun signUp(
@@ -17,6 +19,10 @@ class UserRepository(
             SignUpState.SignUp(user)
         } catch (exc: DuplicateAccountException) {
             SignUpState.DuplicatedAccount
+        }catch (backendException: BackendException){
+            SignUpState.BackendError
+        }catch (connectionException: ConnectionUnavailableException){
+            SignUpState.Offline
         }
     }
 }

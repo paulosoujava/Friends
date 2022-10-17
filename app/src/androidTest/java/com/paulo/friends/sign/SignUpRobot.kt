@@ -54,4 +54,19 @@ class SignUpVerification(
             .assertIsDisplayed()
     }
 
+    fun duplicateAccountErrorIsShown() {
+        val duplicateAccountError = rule.activity.getString(R.string.duplicateAccountError)
+        rule.onNodeWithText(duplicateAccountError)
+            .assertIsDisplayed()
+    }
+
+    fun displayErrorEmailIsShown() {
+        rule.onNodeWithText(rule.activity.getString(R.string.emailError))
+            .assertIsDisplayed()
+    }
+    fun displayErrorPasswordIsShown(){
+        rule.onNodeWithText(rule.activity.getString(R.string.passwordError))
+            .assertIsDisplayed()
+    }
+
 }

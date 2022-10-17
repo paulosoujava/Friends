@@ -1,4 +1,4 @@
-package com.paulo.friends
+package com.paulo.friends.util
 
 /*
 data class User(val name: String, val age: Int)

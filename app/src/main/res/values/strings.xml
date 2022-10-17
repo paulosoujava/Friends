@@ -2,9 +2,13 @@
     <string name="appName">Friends</string>
     <string name="emailHint">digite seu email</string>
     <string name="email">Email</string>
+    <string name="emailError">Digite um email  válido</string>
     <string name="passwordHint">digite sua senha</string>
     <string name="password">Senha</string>
+    <string name="passwordError">A senha deve ter 1 carcter Maisculo, 1 minusculo, numeros e carc. especias</string>
     <string name="signUp">Logar</string>
     <string name="timeline">Timeline</string>
     <string name="account">Create an account</string>
+    <string name="about">Sobre</string>
+    <string name="duplicateAccountError">Este email já exites</string>
 </resources>

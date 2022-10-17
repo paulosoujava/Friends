@@ -71,6 +71,13 @@ dependencies {
     implementation "io.insert-koin:koin-androidx-compose:$koinVersion"
     implementation "com.google.accompanist:accompanist-swiperefresh:0.24.1-alpha"
 
+
+    def lottieVersion = "4.0.0"
+    implementation "com.airbnb.android:lottie-compose:$lottieVersion"
+
+
+
+
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$composeVersion"
     androidTestImplementation "androidx.test.ext:junit-ktx:1.1.3"
 

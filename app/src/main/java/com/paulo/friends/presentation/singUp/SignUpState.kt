@@ -1,4 +1,4 @@
-package com.paulo.friends.singUp
+package com.paulo.friends.presentation.singUp
 
 import com.paulo.friends.domain.user.User
 
@@ -7,5 +7,8 @@ sealed class SignUpState {
     object BadEmail : SignUpState()
     object BadPassword : SignUpState()
     object DuplicatedAccount : SignUpState()
+    object Initial : SignUpState()
+    object BackendError : SignUpState()
+    object Offline : SignUpState()
 
 }

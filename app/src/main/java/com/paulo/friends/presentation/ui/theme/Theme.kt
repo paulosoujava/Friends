@@ -1,4 +1,4 @@
-package com.paulo.friends.ui.theme
+package com.paulo.friends.presentation.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme

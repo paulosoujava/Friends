@@ -5,8 +5,8 @@ import com.paulo.friends.domain.user.InMemoryUserCatalog
 import com.paulo.friends.domain.user.User
 import com.paulo.friends.domain.user.UserRepository
 import com.paulo.friends.domain.validation.RegexCredentialsValidator
-import com.paulo.friends.singUp.SignUpState
-import com.paulo.friends.singUp.SignUpViewModel
+import com.paulo.friends.presentation.singUp.SignUpState
+import com.paulo.friends.presentation.singUp.SignUpViewModel
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith

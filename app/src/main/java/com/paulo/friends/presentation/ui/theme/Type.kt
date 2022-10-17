@@ -1,4 +1,4 @@
-package com.paulo.friends.ui.theme
+package com.paulo.friends.presentation.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
