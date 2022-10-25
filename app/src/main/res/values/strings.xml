@@ -14,4 +14,5 @@
     <string name="backendError">Erro da API</string>
     <string name="offlineError">Erro de conexao</string>
     <string name="loading">loading</string>
+    <string name="emptyTimleLine">Sem dados</string>
 </resources>

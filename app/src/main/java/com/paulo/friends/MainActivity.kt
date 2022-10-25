@@ -11,9 +11,11 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.paulo.friends.presentation.singUp.SignUpScreen
 import com.paulo.friends.presentation.singUp.SignUpViewModel
 import com.paulo.friends.presentation.timeline.Timeline
+import com.paulo.friends.presentation.timeline.TimelineViewModel
 import com.paulo.friends.presentation.ui.theme.FriendsTheme
 import com.paulo.friends.util.Constants
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -21,6 +23,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class MainActivity : ComponentActivity() {
 
     private val signUpViewModel: SignUpViewModel by viewModel()
+    private val timelineViewModel: TimelineViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,15 +38,26 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 ) {
                     NavHost(navController = navController, startDestination = Constants.SIGN_UP) {
-                        composable(Constants.SIGN_UP) {
+                        composable(Constants.SIGN_UP) { userId ->
                             SignUpScreen(
                                 signUpViewModel = signUpViewModel,
-                                navController = navController
-                            )
+                                //navController = navController
+                            ) {
+                                navController.navigate("${Constants.TIMELINE}/ $userId") {
+                                    popUpTo(Constants.SIGN_UP) { inclusive = true }
+                                }
+                            }
 
                         }
-                        composable(Constants.TIMELINE) {
-                            Timeline()
+                        composable(
+                            route = Constants.TIMELINE + "/{${Constants.USER_ID}}",
+                            arguments = listOf(navArgument(Constants.USER_ID) { })
+                        ) { args ->
+                            Timeline(
+                                args.arguments?.getString(Constants.USER_ID) ?: "",
+                                timelineViewModel
+
+                            )
                         }
                     }
 

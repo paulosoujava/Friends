@@ -8,7 +8,6 @@ import androidx.navigation.NavController
 import com.paulo.friends.domain.user.UserRepository
 import com.paulo.friends.domain.validation.CredentialValidationResult
 import com.paulo.friends.domain.validation.RegexCredentialsValidator
-import com.paulo.friends.util.Constants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -44,8 +43,8 @@ class SignUpViewModel(
                         userRepository.signUp(email, password, about)
                     }
 
-                    if (_mutableSignUpState.value is SignUpState.SignUp)
-                        navController?.navigate(Constants.TIMELINE)
+                    /*if (_mutableSignUpState.value is SignUpState.SignUp)
+                        navController?.navigate(Constants.TIMELINE)*/
                 }
 
             }

@@ -38,7 +38,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.paulo.friends.R
@@ -47,7 +46,8 @@ import com.paulo.friends.R
 @Composable
 fun SignUpScreen(
     signUpViewModel: SignUpViewModel,
-    navController: NavHostController
+    //navController: NavHostController,
+    onParam: (String) -> Unit
 ) {
 
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.error))
@@ -75,11 +75,15 @@ fun SignUpScreen(
             )*/
         Box {
             when (state.value) {
+
+                //is SignUpState.SignUp -> onSignedUp((state as SignUpState.SignUp).user.id)
+
                 SignUpState.BadEmail -> {
                     screenState.emailError = true
                     screenState.toggleInfoMessage(R.string.emailError)
 
                 }
+
                 SignUpState.BadPassword -> {
                     screenState.passwordError = true
                     screenState.toggleInfoMessage(R.string.passwordError)
@@ -139,8 +143,8 @@ fun SignUpScreen(
                     with(screenState) {
                         signUpViewModel.createAccount(
                             email, password, "",
-                            navController
-                        )
+                            )
+                        onParam(email)
                     }
 
                 }) {
@@ -155,6 +159,10 @@ fun SignUpScreen(
         }
 
     }
+
+}
+
+fun onSignedUp(user: String) {
 
 }
 

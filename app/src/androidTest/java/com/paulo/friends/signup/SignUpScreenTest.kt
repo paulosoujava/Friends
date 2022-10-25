@@ -186,11 +186,18 @@ class SignUpScreenTest {
             throw ConnectionUnavailableException()
         }
 
+        override fun followBy(userID: String): List<String> {
+            TODO()
+        }
+
     }
 
     class UnavailableUserCatalog : UserCatalog {
         override suspend fun createUser(email: String, password: String, about: String): User {
             throw BackendException()
+        }
+        override fun followBy(userID: String): List<String> {
+            TODO()
         }
 
     }
@@ -199,6 +206,9 @@ class SignUpScreenTest {
         override suspend fun createUser(email: String, password: String, about: String): User {
             delay(1000)
             return User("idTest", email, about)
+        }
+        override fun followBy(userID: String): List<String> {
+            TODO()
         }
     }
 

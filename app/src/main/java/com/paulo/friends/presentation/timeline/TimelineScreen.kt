@@ -11,12 +11,19 @@ import androidx.compose.ui.res.stringResource
 import com.paulo.friends.R
 
 @Composable
-fun Timeline() {
+fun Timeline(
+    userId: String,
+    timelineViewModel: TimelineViewModel
+) {
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center) {
+
         Text(text = stringResource(R.string.timeline))
+        Text(text = stringResource(R.string.emptyTimleLine))
+
+        timelineViewModel.timelineFor(userId)
     }
 
 }
