@@ -1,6 +1,7 @@
 package com.paulo.friends.app
 
 import com.paulo.friends.domain.user.InMemoryUserCatalog
+import com.paulo.friends.domain.user.UserCatalog
 import com.paulo.friends.domain.user.UserRepository
 import com.paulo.friends.domain.validation.RegexCredentialsValidator
 import com.paulo.friends.presentation.singUp.SignUpViewModel
@@ -9,7 +10,7 @@ import org.koin.dsl.module
 
 val applicationModule = module {
 
-    single {  InMemoryUserCatalog()}
+    single<UserCatalog> {  InMemoryUserCatalog()}
 
     factory { RegexCredentialsValidator() }
     factory { UserRepository( userCatalog = get()) }

@@ -10,5 +10,6 @@ sealed class SignUpState {
     object Initial : SignUpState()
     object BackendError : SignUpState()
     object Offline : SignUpState()
+    object Loading : SignUpState()
 
 }

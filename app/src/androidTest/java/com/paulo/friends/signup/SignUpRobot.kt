@@ -1,7 +1,8 @@
-package com.paulo.friends.sign
+package com.paulo.friends.signup
 
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
@@ -20,14 +21,15 @@ class SignUpRobot(
     private val rule: AndroidComposeTestRule<ActivityScenarioRule<MainActivity>, MainActivity>
 ) {
     fun typeEmail(email: String) {
-        val emailHint = rule.activity.getString(R.string.email)
-        rule.onNodeWithText(emailHint)
+        val emailTag = rule.activity.getString(R.string.email)
+        // rule.onNodeWithText(emailHint)
+        rule.onNodeWithTag(emailTag)
             .performTextInput(email)
     }
 
     fun typePassword(password: String) {
-        val passwordHint = rule.activity.getString(R.string.password)
-        rule.onNodeWithText(passwordHint)
+        val passwordTag = rule.activity.getString(R.string.password)
+        rule.onNodeWithTag(passwordTag)
             .performTextInput(password)
     }
 
@@ -49,14 +51,12 @@ class SignUpVerification(
     private val rule: AndroidComposeTestRule<ActivityScenarioRule<MainActivity>, MainActivity>
 ) {
     fun timelineScreenIsPresent() {
-        val timeline = rule.activity.getString(R.string.timeline)
-        rule.onNodeWithText(timeline)
+        rule.onNodeWithText(rule.activity.getString(R.string.timeline))
             .assertIsDisplayed()
     }
 
     fun duplicateAccountErrorIsShown() {
-        val duplicateAccountError = rule.activity.getString(R.string.duplicateAccountError)
-        rule.onNodeWithText(duplicateAccountError)
+        rule.onNodeWithText(rule.activity.getString(R.string.duplicateAccountError))
             .assertIsDisplayed()
     }
 
@@ -64,9 +64,36 @@ class SignUpVerification(
         rule.onNodeWithText(rule.activity.getString(R.string.emailError))
             .assertIsDisplayed()
     }
-    fun displayErrorPasswordIsShown(){
+
+    fun badEmailErrorIsShown() {
+        rule.onNodeWithText(rule.activity.getString(R.string.emailError))
+            .assertDoesNotExist()
+    }
+
+    fun badPasswordErrorIsShown() {
+        rule.onNodeWithText(rule.activity.getString(R.string.passwordError))
+            .assertDoesNotExist()
+    }
+
+    fun displayErrorPasswordIsShown() {
         rule.onNodeWithText(rule.activity.getString(R.string.passwordError))
             .assertIsDisplayed()
     }
+
+    fun backendErrorIsShown() {
+        rule.onNodeWithText(rule.activity.getString(R.string.backendError))
+            .assertIsDisplayed()
+    }
+
+    fun offlineErrorIsShown() {
+        rule.onNodeWithText(rule.activity.getString(R.string.offlineError))
+            .assertIsDisplayed()
+    }
+
+    fun blockingLoadingIsShown () {
+        rule.onNodeWithTag(rule.activity.getString(R.string.loading))
+            .assertIsDisplayed()
+    }
+
 
 }

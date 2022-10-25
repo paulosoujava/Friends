@@ -1,11 +1,17 @@
 package com.paulo.friends.presentation.singUp
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import com.paulo.friends.domain.user.UserRepository
 import com.paulo.friends.domain.validation.CredentialValidationResult
 import com.paulo.friends.domain.validation.RegexCredentialsValidator
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import com.paulo.friends.util.Constants
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class SignUpViewModel(
@@ -13,14 +19,15 @@ class SignUpViewModel(
     private val userRepository: UserRepository
 ) : ViewModel() {
 
-    private val _mutableSignUpState = MutableStateFlow<SignUpState>(SignUpState.Initial)
-    val signUpState: StateFlow<SignUpState> = _mutableSignUpState
+    private val _mutableSignUpState = MutableLiveData<SignUpState>(SignUpState.Initial)
+    val signUpState: LiveData<SignUpState> = _mutableSignUpState
 
 
     fun createAccount(
         email: String,
         password: String,
-        about: String
+        about: String,
+        navController: NavController? = null
     ) {
         when (credentialsValidator.validate(email, password)) {
             CredentialValidationResult.InvalidEmail ->
@@ -28,12 +35,19 @@ class SignUpViewModel(
             CredentialValidationResult.InvalidPassword ->
                 _mutableSignUpState.value = SignUpState.BadPassword
             CredentialValidationResult.Valid -> {
-                _mutableSignUpState.value = userRepository.signUp(email, password, about)
+                viewModelScope.launch {
+                    _mutableSignUpState.value = SignUpState.Loading
+                    _mutableSignUpState.value = withContext(Dispatchers.IO) {
+                        userRepository.signUp(email, password, about)
+
+                    }
+                    if (_mutableSignUpState.value is SignUpState.SignUp)
+                        navController?.navigate(Constants.TIMELINE)
+                }
+
             }
         }
     }
-
-
 }
 
 

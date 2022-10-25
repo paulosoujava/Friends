@@ -5,10 +5,13 @@
     <string name="emailError">Digite um email  válido</string>
     <string name="passwordHint">digite sua senha</string>
     <string name="password">Senha</string>
-    <string name="passwordError">A senha deve ter 1 carcter Maisculo, 1 minusculo, numeros e carc. especias</string>
+    <string name="passwordError">Formato de senha inválido</string>
     <string name="signUp">Logar</string>
     <string name="timeline">Timeline</string>
     <string name="account">Create an account</string>
     <string name="about">Sobre</string>
     <string name="duplicateAccountError">Este email já exites</string>
+    <string name="backendError">Erro da API</string>
+    <string name="offlineError">Erro de conexao</string>
+    <string name="loading">loading</string>
 </resources>

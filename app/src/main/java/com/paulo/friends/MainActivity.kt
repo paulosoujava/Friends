@@ -6,31 +6,26 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.paulo.friends.presentation.singUp.SignUpScreen
-import com.paulo.friends.presentation.singUp.SignUpState
 import com.paulo.friends.presentation.singUp.SignUpViewModel
 import com.paulo.friends.presentation.timeline.Timeline
 import com.paulo.friends.presentation.ui.theme.FriendsTheme
+import com.paulo.friends.util.Constants
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : ComponentActivity() {
 
     private val signUpViewModel: SignUpViewModel by viewModel()
 
-
-    private companion object {
-        private const val SIGN_UP = "signUp"
-        private const val TIMELINE = "timeline"
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-
+            val state = signUpViewModel.signUpState.observeAsState()
             val navController = rememberNavController()
 
             FriendsTheme {
@@ -39,17 +34,15 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    NavHost(navController = navController, startDestination = SIGN_UP) {
-                        composable(SIGN_UP) {
+                    NavHost(navController = navController, startDestination = Constants.SIGN_UP) {
+                        composable(Constants.SIGN_UP) {
                             SignUpScreen(
                                 signUpViewModel = signUpViewModel,
-                                onNavigate = {
-                                    if (signUpViewModel.signUpState.value is SignUpState.SignUp)
-                                        navController.navigate(TIMELINE)
-                                })
+                                navController = navController
+                            )
 
                         }
-                        composable(TIMELINE) {
+                        composable(Constants.TIMELINE) {
                             Timeline()
                         }
                     }
