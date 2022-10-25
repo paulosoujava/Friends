@@ -7,6 +7,7 @@ import com.paulo.friends.domain.user.UserRepository
 import com.paulo.friends.domain.validation.RegexCredentialsValidator
 import com.paulo.friends.presentation.singUp.SignUpState
 import com.paulo.friends.presentation.singUp.SignUpViewModel
+import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -24,7 +25,7 @@ class CreateAnAccountTest {
     )
 
     @Test
-    fun accountCreated() {
+    fun accountCreated()= runBlocking {
         val joe = User("joeId", "joe@email.com", "about Joe")
         viewModel.createAccount(joe.email, "Joe@2022", joe.about)
 

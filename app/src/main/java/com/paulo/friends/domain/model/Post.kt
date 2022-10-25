@@ -1,4 +1,4 @@
-package com.paulo.friends.domain
+package com.paulo.friends.domain.model
 
 data class Post(
     val postId: String,

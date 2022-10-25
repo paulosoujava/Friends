@@ -35,12 +35,15 @@ class SignUpViewModel(
             CredentialValidationResult.InvalidPassword ->
                 _mutableSignUpState.value = SignUpState.BadPassword
             CredentialValidationResult.Valid -> {
-                viewModelScope.launch {
-                    _mutableSignUpState.value = SignUpState.Loading
-                    _mutableSignUpState.value = withContext(Dispatchers.IO) {
-                        userRepository.signUp(email, password, about)
 
+                _mutableSignUpState.value = SignUpState.Loading
+
+                viewModelScope.launch {
+
+                    _mutableSignUpState.value = withContext(Dispatchers.Unconfined) {
+                        userRepository.signUp(email, password, about)
                     }
+
                     if (_mutableSignUpState.value is SignUpState.SignUp)
                         navController?.navigate(Constants.TIMELINE)
                 }
